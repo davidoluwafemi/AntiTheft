@@ -1,0 +1,98 @@
+#:import MDDropdownMenu kivymd.uix.menu.MDDropdownMenu
+
+<Arm>:
+	ScreenManager:
+		id: screens
+		Screen:
+			name: 'intro'
+			FloatLayout:
+				Label:
+					canvas.before:
+						Color:
+							rgb: 0,0,0
+						Rectangle:
+							size: self.size
+							pos: self.pos
+							
+				Image:
+					id: gif
+					source: 'test1.gif'
+					allow_stretch: True
+					color: 1,0,0,1
+					anim_delay: 0.001
+					size_hint: 1, 1
+					pos_hint: {'center_x': 0.5,"center_y":0.5}
+					
+				MDToolbar:
+					title: app.title
+					pos_hint: {"top": 1}
+					md_bg_color: 0.545, 0, 0, 1
+					background_palette: "Primary"
+					elevation: 10
+					right_action_items:
+						[["dots-vertical", \
+						lambda x: MDDropdownMenu\
+						(items=app.menu_items, width_mult=3)\
+						.open(self)]]
+
+				BoxLayout:
+					id: arm_page
+					size_hint: 1,0.5
+					pos_hint: {'center_x': 0.5,"center_y":0.5}
+					Button:
+						id: arm_btn
+						text: '[b][color=8b0000]Arm'
+						markup: True
+						font_size: dp(40)
+						background_color: 0,0,0,0
+						on_release: root.arm()
+						
+				Label:
+					id: countdown
+					text: ''
+					markup: True
+					font_size: dp(30)
+					size_hint: 1,0.5
+					pos_hint: {'center_x': 0.5,"center_y":0.5}
+		
+		# blank screen			
+		Screen:
+			name: 'trigger'
+			FloatLayout:
+				canvas.before:
+					Color:
+						rgb: 0,0,0
+					Rectangle:
+						size: self.size
+						pos: self.pos
+		
+								
+<AboutMe@Popup>
+	title: 'About'
+	title_color: 1,1,1,1
+	title_align: 'center'
+	title_size: dp(20)
+	auto_dismiss: False
+	size_hint: 1,1
+	background: 'popupbg.png'
+	separator_color: 0,0,0,1
+	FloatLayout:
+		
+		BoxLayout:
+			size_hint: .8, .8
+			pos_hint: {'center_x': .5, 'center_y': .58}
+			canvas.before:
+				Color:
+					rgb: 0.545, 0, 0
+				RoundedRectangle:
+					size: self.size
+					pos: self.pos
+					radius: [dp(10)]
+					
+		MDRaisedButton:
+			text: 'Done'
+			pos_hint: {'center_x': .5, 'center_y': .1}
+			elevation_normal: 2
+			opposite_colors: True
+			md_bg_color: 0.545, 0, 0, 1
+			on_release:  root.dismiss()
